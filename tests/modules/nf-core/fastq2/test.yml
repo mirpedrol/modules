@@ -1,0 +1,91 @@
+- name: fastq2 test_fastqc_single_end
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_single_end -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/test_fastqc.html
+      md5sum: f327eb8c47d1e01cd62048ae8d7d85bf
+    - path: output/fastqc/test_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml
+
+- name: fastq2 test_fastqc_paired_end
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_paired_end -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/test_1_fastqc.html
+      md5sum: c8d44bbe5bf4d41aa15381e9a4995367
+    - path: output/fastqc/test_1_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/test_2_fastqc.html
+      md5sum: 144074b1c40e0cd279fd103f76a70f3c
+    - path: output/fastqc/test_2_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml
+
+- name: fastq2 test_fastqc_interleaved
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_interleaved -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/test_fastqc.html
+      md5sum: 644a0885df7e96356e398884039500a9
+    - path: output/fastqc/test_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml
+
+- name: fastq2 test_fastqc_bam
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_bam -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/test_fastqc.html
+      md5sum: ca6d7d04f8c98c24a981f6412c255549
+    - path: output/fastqc/test_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml
+
+- name: fastq2 test_fastqc_multiple
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_multiple -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/test_1_fastqc.html
+      md5sum: c8d44bbe5bf4d41aa15381e9a4995367
+    - path: output/fastqc/test_1_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/test_2_fastqc.html
+      md5sum: 144074b1c40e0cd279fd103f76a70f3c
+    - path: output/fastqc/test_2_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/test_3_fastqc.html
+      md5sum: efa02698337dd80327727d054b3063fd
+    - path: output/fastqc/test_3_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/test_4_fastqc.html
+      md5sum: aa8b5df0c047afa49c45624192d2f458
+    - path: output/fastqc/test_4_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml
+
+- name: fastq2 test_fastqc_custom_prefix
+  command: nextflow run ./tests/modules/nf-core/fastq2 -entry test_fastqc_custom_prefix -c ./tests/config/nextflow.config -c ./tests/modules/nf-core/fastq2/nextflow.config
+  tags:
+    - fastq2
+  files:
+    - path: output/fastqc/mysample_fastqc.html
+      md5sum: f536b10dddac7ee614f55f5aae0c32f8
+    - path: output/fastqc/mysample_fastqc.zip
+      contains:
+        - "# TODO nf-core: file md5sum was variable, please replace this text with a string found in the file instead "
+    - path: output/fastqc/versions.yml

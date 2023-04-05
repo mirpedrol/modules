@@ -1030,6 +1030,10 @@ fastp:
   - modules/nf-core/fastp/**
   - tests/modules/nf-core/fastp/**
 
+fastq2:
+  - modules/nf-core/fastq2/**
+  - tests/modules/nf-core/fastq2/**
+
 fastqc:
   - modules/nf-core/fastqc/**
   - tests/modules/nf-core/fastqc/**
