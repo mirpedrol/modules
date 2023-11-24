@@ -1,0 +1,223 @@
+nextflow_process {
+
+    name "Test Process BAMTOOLS_CONVERT"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "BAMTOOLS_CONVERT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "bamtools"
+    tag "bamtools/convert"
+
+    test("test_bamtools_convert_ext_error") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_bamtools_convert_noext_error") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_bed") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_fasta") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_fastq") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_json") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_pileup") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_sam") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_bamtools_convert_yaml") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

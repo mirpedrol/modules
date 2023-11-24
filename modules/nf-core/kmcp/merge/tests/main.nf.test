@@ -1,0 +1,41 @@
+nextflow_process {
+
+    name "Test Process KMCP_MERGE"
+    script "../main.nf"
+    process "KMCP_MERGE"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "kmcp"
+    tag "kmcp/merge"
+
+    test("test_kmcp_merge") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:true ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkIfExists: true)
+    ]
+
+    KMCP_COMPUTE ( input )
+    KMCP_INDEX ( KMCP_COMPUTE.out.outdir )
+    KMCP_SEARCH ( KMCP_INDEX.out.kmcp.map{it[1]}, input )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

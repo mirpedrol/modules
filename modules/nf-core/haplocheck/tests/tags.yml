@@ -1,0 +1,2 @@
+haplocheck:
+  - "modules/nf-core/haplocheck/**"

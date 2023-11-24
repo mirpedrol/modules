@@ -1,0 +1,44 @@
+nextflow_process {
+
+    name "Test Process ULTRA_ALIGN"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "ULTRA_ALIGN"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "ultra"
+    tag "ultra/align"
+
+    test("test_ultra_align") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ],
+        file(params.test_data['homo_sapiens']['genome']['genome_gtf']  , checkIfExists: true)
+    ]
+
+                input[1] = file(params.test_data['homo_sapiens']['genome']['genome_fasta'], checkIfExists: true)
+
+    GUNZIP ( input_gunzip )
+    GNU_SORT ( input_sort )
+    ULTRA_INDEX ( genome, GNU_SORT.out.sorted.map{ it[1] } )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

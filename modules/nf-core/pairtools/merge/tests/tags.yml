@@ -1,0 +1,2 @@
+pairtools/merge:
+  - "modules/nf-core/pairtools/merge/**"

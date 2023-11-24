@@ -1,0 +1,2 @@
+pairtools/select:
+  - "modules/nf-core/pairtools/select/**"

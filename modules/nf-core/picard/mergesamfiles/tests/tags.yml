@@ -1,0 +1,2 @@
+picard/mergesamfiles:
+  - "modules/nf-core/picard/mergesamfiles/**"

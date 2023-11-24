@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process FCS_FCSADAPTOR"
+    script "../main.nf"
+    process "FCS_FCSADAPTOR"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "fcs"
+    tag "fcs/fcsadaptor"
+
+    test("test_fcs_fcsadaptor") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['bacteroides_fragilis']['genome']['genome_fna_gz'], checkIfExists: true)
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

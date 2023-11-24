@@ -1,0 +1,2 @@
+pydamage/filter:
+  - "modules/nf-core/pydamage/filter/**"

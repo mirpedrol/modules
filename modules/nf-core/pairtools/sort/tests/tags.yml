@@ -1,0 +1,2 @@
+pairtools/sort:
+  - "modules/nf-core/pairtools/sort/**"

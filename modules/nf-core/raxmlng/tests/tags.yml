@@ -1,0 +1,2 @@
+raxmlng:
+  - "modules/nf-core/raxmlng/**"

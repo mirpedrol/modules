@@ -1,0 +1,45 @@
+nextflow_process {
+
+    name "Test Process HLALA_PREPAREGRAPH"
+    script "../main.nf"
+    process "HLALA_PREPAREGRAPH"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "hlala"
+    tag "hlala/preparegraph"
+
+    test("test_hlala_preparegraph") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test'], // meta map
+        file(params.test_data['homo_sapiens']['genome']['prg_input'], checkIfExists: true)
+    ]
+    
+    UNZIP( input )
+
+    UNZIP.out.unzipped_archive.map { id, path ->
+                                        [ id, "$path/PRG_${path.toString().split("/").last()}" ] 
+                                     }
+                                     .set { hla_preparegraph_test_in }
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

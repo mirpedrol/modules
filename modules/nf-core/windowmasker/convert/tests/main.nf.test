@@ -1,0 +1,82 @@
+nextflow_process {
+
+    name "Test Process WINDOWMASKER_CONVERT"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "WINDOWMASKER_CONVERT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "windowmasker"
+    tag "windowmasker/convert"
+
+    test("test_windowmasker_convert_oascii") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+    
+    WINDOWMASKER_MKCOUNTS ( [ [id:'test'], input ] )
+    
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_windowmasker_convert_binary") {
+        when {
+            process {
+                """
+                        input[0] = file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+    
+    WINDOWMASKER_MKCOUNTS ( [ [id:'test'], input ] )
+    
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_windowmasker_convert_obinary") {
+        when {
+            process {
+                """
+                        input[0] = file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+    
+    WINDOWMASKER_MKCOUNTS ( [ [id:'test'], input ] )
+    
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

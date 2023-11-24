@@ -1,0 +1,36 @@
+nextflow_process {
+
+    name "Test Process LAST_DOTPLOT"
+    script "../main.nf"
+    process "LAST_DOTPLOT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "last"
+    tag "last/dotplot"
+
+    test("test_last_dotplot") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test' ], // meta map
+              file(params.test_data['sarscov2']['genome']['contigs_genome_maf_gz'], checkIfExists: true) ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

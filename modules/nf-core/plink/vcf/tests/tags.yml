@@ -1,0 +1,2 @@
+plink/vcf:
+  - "modules/nf-core/plink/vcf/**"

@@ -1,0 +1,67 @@
+nextflow_process {
+
+    name "Test Process KRONA_KTIMPORTTEXT"
+    script "../main.nf"
+    process "KRONA_KTIMPORTTEXT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "krona"
+    tag "krona/ktimporttext"
+
+    test("test_krona_ktimporttext_multi") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        [
+            file('https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/delete_me/krona/ktimporttext.txt', checkIfExists: true), // krona default test file
+            file(params.test_data['sarscov2']['metagenome']['kraken_report'], checkIfExists: true), //Kraken2 report file
+            file('https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/delete_me/krona/kaiju_out4krona.txt', checkIfExists: true) // Kaiju output 4 krona
+        ]
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_krona_ktimporttext_single") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        [
+            file('http://krona.sourceforge.net/examples/text.txt', checkIfExists: true) // krona default test file
+        ]
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

@@ -1,0 +1,39 @@
+nextflow_process {
+
+    name "Test Process ISOSEQ3_CLUSTER"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "ISOSEQ3_CLUSTER"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "isoseq3"
+    tag "isoseq3/cluster"
+
+    test("test_isoseq3_cluster") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+            [ id:'test' ], // meta map
+            file(params.test_data['homo_sapiens']['pacbio']['refine'], checkIfExists: true),
+        ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

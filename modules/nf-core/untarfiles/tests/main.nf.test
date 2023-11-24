@@ -1,0 +1,83 @@
+nextflow_process {
+
+    name "Test Process UNTARFILES"
+    script "../main.nf"
+    process "UNTARFILES"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "untarfiles"
+
+    test("test_untarfiles") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [id: 'test'],
+        file(params.test_data['sarscov2']['genome']['kraken2_tar_gz'], checkIfExists: true)
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_untarfiles_different_output_path") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [id: 'test'],
+        file(params.test_data['homo_sapiens']['illumina']['test_flowcell'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_untarfiles_onlyfiles") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [id: 'test'],
+        file(params.test_data['generic']['tar']['tar_gz'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

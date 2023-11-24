@@ -1,0 +1,2 @@
+picard/fixmateinformation:
+  - "modules/nf-core/picard/fixmateinformation/**"

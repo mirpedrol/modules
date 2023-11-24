@@ -1,0 +1,148 @@
+nextflow_process {
+
+    name "Test Process ASHLAR"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "ASHLAR"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "ashlar"
+
+    test("test_ashlar_1_file") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] =  [ [ id:'test_all' ],
+               [file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle1'], checkIfExists: true)] ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_ashlar_all_files") {
+        when {
+            process {
+                """
+                        input[0] =  [ [ id:'test_all' ],
+               [file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle1'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle2'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle3'], checkIfExists: true)] ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_ashlar_all_files_tile_size") {
+        when {
+            process {
+                """
+                        input[0] =  [ [ id:'test_all' ],
+               [file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle1'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle2'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle3'], checkIfExists: true)] ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_ashlar_all_files_dfp_ffp") {
+        when {
+            process {
+                """
+                        input[0] =  [ [ id:'test_all' ],
+               [file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle1'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle2'], checkIfExists: true),
+                file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle3'], checkIfExists: true)] ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+    test("test_ashlar_1_file_dfp_ffp") {
+        when {
+            process {
+                """
+                        input[0] =  [ [ id:'test_all' ],
+               [file(params.test_data['imaging']
+                                     ['ome-tiff']
+                                     ['cycif_tonsil_cycle1'], checkIfExists: true)] ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

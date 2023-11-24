@@ -1,0 +1,59 @@
+nextflow_process {
+
+    name "Test Process SMOOTHXG"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "SMOOTHXG"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "smoothxg"
+
+    test("test_smoothxg") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test' ], // meta map
+              [ file(params.test_data['sarscov2']['illumina']['assembly_gfa'], checkIfExists: true) ]
+            ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_smoothxg_pangenomics") {
+        when {
+            process {
+                """
+                        input[0] = [ [ id:'test' ], // meta map
+              [ file(params.test_data['homo_sapiens']['pangenome']['pangenome_seqwish_gfa'], checkIfExists: true) ]
+            ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

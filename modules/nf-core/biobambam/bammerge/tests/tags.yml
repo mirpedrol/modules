@@ -1,0 +1,2 @@
+biobambam/bammerge:
+  - "modules/nf-core/biobambam/bammerge/**"

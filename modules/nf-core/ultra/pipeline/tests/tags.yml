@@ -1,0 +1,2 @@
+ultra/pipeline:
+  - "modules/nf-core/ultra/pipeline/**"

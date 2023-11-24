@@ -1,0 +1,2 @@
+pints/caller:
+  - "modules/nf-core/pints/caller/**"

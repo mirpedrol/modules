@@ -1,0 +1,2 @@
+untarfiles:
+  - "modules/nf-core/untarfiles/**"

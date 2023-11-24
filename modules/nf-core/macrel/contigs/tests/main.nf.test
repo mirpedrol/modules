@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process MACREL_CONTIGS"
+    script "../main.nf"
+    process "MACREL_CONTIGS"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "macrel"
+    tag "macrel/contigs"
+
+    test("test_macrel_contigs") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ 
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true) 
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

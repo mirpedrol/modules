@@ -1,0 +1,2 @@
+picard/createsequencedictionary:
+  - "modules/nf-core/picard/createsequencedictionary/**"

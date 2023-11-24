@@ -1,0 +1,2 @@
+bamtools/stats:
+  - "modules/nf-core/bamtools/stats/**"

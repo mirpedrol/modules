@@ -1,0 +1,2 @@
+elprep/split:
+  - "modules/nf-core/elprep/split/**"

@@ -1,0 +1,2 @@
+macrel/contigs:
+  - "modules/nf-core/macrel/contigs/**"

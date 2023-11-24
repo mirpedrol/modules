@@ -1,0 +1,2 @@
+cnvnator/cnvnator:
+  - "modules/nf-core/cnvnator/cnvnator/**"

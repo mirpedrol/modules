@@ -1,0 +1,2 @@
+igv/js:
+  - "modules/nf-core/igv/js/**"

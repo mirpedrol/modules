@@ -1,0 +1,39 @@
+nextflow_process {
+
+    name "Test Process ELPREP_MERGE"
+    script "../main.nf"
+    process "ELPREP_MERGE"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "elprep"
+    tag "elprep/merge"
+
+    test("test_elprep_merge") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExists: true)
+    ]
+
+    ELPREP_SPLIT ( input )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

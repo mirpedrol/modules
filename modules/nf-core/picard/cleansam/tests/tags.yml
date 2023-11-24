@@ -1,0 +1,2 @@
+picard/cleansam:
+  - "modules/nf-core/picard/cleansam/**"

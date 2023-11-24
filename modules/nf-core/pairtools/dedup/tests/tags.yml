@@ -1,0 +1,2 @@
+pairtools/dedup:
+  - "modules/nf-core/pairtools/dedup/**"

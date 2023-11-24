@@ -1,0 +1,2 @@
+snpdists:
+  - "modules/nf-core/snpdists/**"

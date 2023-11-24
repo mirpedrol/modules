@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process PYDAMAGE_FILTER"
+    script "../main.nf"
+    process "PYDAMAGE_FILTER"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "pydamage"
+    tag "pydamage/filter"
+
+    test("test_pydamage") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test', single_end:false ], // meta map
+              file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam'], checkIfExists: true),
+              file(params.test_data['homo_sapiens']['illumina']['test_paired_end_sorted_bam_bai'], checkIfExists: true) ]
+
+    PYDAMAGE_ANALYZE ( input )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

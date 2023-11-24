@@ -1,0 +1,2 @@
+paftools/sam2paf:
+  - "modules/nf-core/paftools/sam2paf/**"

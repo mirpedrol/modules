@@ -1,0 +1,2 @@
+picard/renamesampleinvcf:
+  - "modules/nf-core/picard/renamesampleinvcf/**"

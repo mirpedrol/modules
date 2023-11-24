@@ -1,0 +1,2 @@
+pneumocat:
+  - "modules/nf-core/pneumocat/**"
