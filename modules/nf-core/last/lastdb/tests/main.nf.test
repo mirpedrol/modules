@@ -1,0 +1,60 @@
+nextflow_process {
+
+    name "Test Process LAST_LASTDB"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "LAST_LASTDB"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "last"
+    tag "last/lastdb"
+
+    test("test_last_lastdb") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test' ], // meta map
+              file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+            ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_last_lastdb_gzipped_input") {
+        when {
+            process {
+                """
+                        input[0] = [ [ id:'test' ], // meta map
+              file(params.test_data['sarscov2']['illumina']['test_1_fastq_gz'], checkIfExists: true)
+            ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

@@ -1,0 +1,37 @@
+nextflow_process {
+
+    name "Test Process PICARD_RENAMESAMPLEINVCF"
+    script "../main.nf"
+    process "PICARD_RENAMESAMPLEINVCF"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "picard"
+    tag "picard/renamesampleinvcf"
+
+    test("test_picard_renamesampleinvcf") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test' ],
+        file(params.test_data['homo_sapiens']['illumina']['test_genome_vcf'], checkIfExists: true)
+            ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

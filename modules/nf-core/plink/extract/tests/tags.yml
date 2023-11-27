@@ -1,0 +1,2 @@
+plink/extract:
+  - "modules/nf-core/plink/extract/**"

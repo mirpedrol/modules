@@ -1,0 +1,2 @@
+cnvnator/convert2vcf:
+  - "modules/nf-core/cnvnator/convert2vcf/**"

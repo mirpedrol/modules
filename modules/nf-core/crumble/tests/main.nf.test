@@ -1,0 +1,61 @@
+nextflow_process {
+
+    name "Test Process CRUMBLE"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "CRUMBLE"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "crumble"
+
+    test("test_crumble") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test' ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_crumble_bedout") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test' ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true)
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

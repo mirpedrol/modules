@@ -1,0 +1,2 @@
+bamtools/convert:
+  - "modules/nf-core/bamtools/convert/**"

@@ -1,0 +1,2 @@
+elprep/merge:
+  - "modules/nf-core/elprep/merge/**"

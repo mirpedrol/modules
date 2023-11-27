@@ -1,0 +1,2 @@
+picard/collectinsertsizemetrics:
+  - "modules/nf-core/picard/collectinsertsizemetrics/**"

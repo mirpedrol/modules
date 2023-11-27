@@ -1,0 +1,2 @@
+plink/bcf:
+  - "modules/nf-core/plink/bcf/**"

@@ -1,0 +1,42 @@
+nextflow_process {
+
+    name "Test Process GTDBTK_CLASSIFYWF"
+    script "../main.nf"
+    process "GTDBTK_CLASSIFYWF"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "gtdbtk"
+    tag "gtdbtk/classifywf"
+
+    test("test_gtdbtk_classifywf") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ 
+        [ id:'test', single_end:false, assembler:'SPADES' ],
+        [ 
+            file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true),
+            file(params.test_data['sarscov2']['illumina']['contigs_fasta'], checkIfExists: true),
+            file(params.test_data['sarscov2']['illumina']['scaffolds_fasta'], checkIfExists: true)
+        ]
+    ]
+	
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

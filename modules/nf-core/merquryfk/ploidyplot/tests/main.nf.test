@@ -1,0 +1,64 @@
+nextflow_process {
+
+    name "Test Process MERQURYFK_PLOIDYPLOT"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "MERQURYFK_PLOIDYPLOT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "merquryfk"
+    tag "merquryfk/ploidyplot"
+
+    test("test_merquryfk_ploidyplot_png") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:true ], // meta map
+        file(params.test_data['homo_sapiens']['illumina']['test_1_fastq_gz'], checkIfExists: true)
+    ]
+
+    FASTK_FASTK ( input )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_merquryfk_ploidyplot_pdf") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:true ], // meta map
+        file(params.test_data['homo_sapiens']['illumina']['test_1_fastq_gz'], checkIfExists: true)
+    ]
+
+    FASTK_FASTK ( input )
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

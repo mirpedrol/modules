@@ -1,0 +1,2 @@
+msisensorpro/scan:
+  - "modules/nf-core/msisensorpro/scan/**"

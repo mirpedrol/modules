@@ -1,0 +1,2 @@
+kmcp/merge:
+  - "modules/nf-core/kmcp/merge/**"

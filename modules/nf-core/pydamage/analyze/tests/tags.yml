@@ -1,0 +1,2 @@
+pydamage/analyze:
+  - "modules/nf-core/pydamage/analyze/**"

@@ -1,0 +1,2 @@
+bamtools/split:
+  - "modules/nf-core/bamtools/split/**"

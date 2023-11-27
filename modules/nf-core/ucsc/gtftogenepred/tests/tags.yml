@@ -1,0 +1,2 @@
+ucsc/gtftogenepred:
+  - "modules/nf-core/ucsc/gtftogenepred/**"

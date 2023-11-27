@@ -1,0 +1,61 @@
+nextflow_process {
+
+    name "Test Process TRINITY"
+    script "../main.nf"
+    process "TRINITY"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "trinity"
+
+    test("test_trinity_paired_end") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        [ file(params.test_data['homo_sapiens']['illumina']['test_rnaseq_1_fastq_gz'], checkIfExists: true),
+          file(params.test_data['homo_sapiens']['illumina']['test_rnaseq_2_fastq_gz'], checkIfExists: true) ]
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+    test("test_trinity_single_end") {
+        when {
+            process {
+                """
+                        input[0] = [
+        [ id:'test', single_end:true ], // meta map
+        [ file(params.test_data['homo_sapiens']['illumina']['test_rnaseq_1_fastq_gz'], checkIfExists: true) ]
+    ]
+
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+    }
+    
+}

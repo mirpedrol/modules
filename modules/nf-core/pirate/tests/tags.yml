@@ -1,0 +1,2 @@
+pirate:
+  - "modules/nf-core/pirate/**"

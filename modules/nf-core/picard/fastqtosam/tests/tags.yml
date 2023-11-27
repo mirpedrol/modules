@@ -1,0 +1,2 @@
+picard/fastqtosam:
+  - "modules/nf-core/picard/fastqtosam/**"

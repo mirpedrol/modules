@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process PICARD_FIXMATEINFORMATION"
+    script "../main.nf"
+    process "PICARD_FIXMATEINFORMATION"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "picard"
+    tag "picard/fixmateinformation"
+
+    test("test_picard_fixmateinformation") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ 
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_paired_end_bam'], checkIfExists: true) 
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process VG_DECONSTRUCT"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "VG_DECONSTRUCT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "vg"
+    tag "vg/deconstruct"
+
+    test("test_vg_deconstruct") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ [ id:'test' ], // meta map
+              [ file(params.test_data['homo_sapiens']['pangenome']['pangenome_gfaffix_gfa'], checkIfExists: true) ]
+            ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

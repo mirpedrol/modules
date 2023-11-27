@@ -1,0 +1,2 @@
+biobambam/bammarkduplicates2:
+  - "modules/nf-core/biobambam/bammarkduplicates2/**"

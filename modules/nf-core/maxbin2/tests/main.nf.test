@@ -1,0 +1,39 @@
+nextflow_process {
+
+    name "Test Process MAXBIN2"
+    script "../main.nf"
+    process "MAXBIN2"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "maxbin2"
+
+    test("test_maxbin2") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [ 
+        [ id:'test1', single_end:false ], // meta map
+        file(params.test_data['bacteroides_fragilis']['illumina']['test1_contigs_fa_gz'], checkIfExists: true),
+        file(params.test_data['bacteroides_fragilis']['illumina']['test1_1_fastq_gz'], checkIfExists: true),
+        []
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

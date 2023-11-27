@@ -1,0 +1,2 @@
+crumble:
+  - "modules/nf-core/crumble/**"

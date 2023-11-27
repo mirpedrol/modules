@@ -1,0 +1,52 @@
+nextflow_process {
+
+    name "Test Process PLINK_EXTRACT"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "PLINK_EXTRACT"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "plink"
+    tag "plink/extract"
+
+    test("test_plink_extract") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['homo_sapiens']['genome']['syntheticvcf_short_vcf_gz'], checkIfExists: true) 
+    ]
+
+    PLINK_VCF ( input )
+    
+    PLINK_VCF.out.bim
+        .splitText(file: 'variants.keep', keepHeader: false, by: 10)
+        .first()
+        .set { ch_variants }
+
+    PLINK_VCF.out.bed
+        .concat(PLINK_VCF.out.bim, PLINK_VCF.out.fam.concat(ch_variants))
+        .groupTuple()
+        .map{ meta, paths -> [meta, paths[0], paths[1], paths[2], paths[3]] }
+        .set { ch_extract }
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

@@ -1,0 +1,2 @@
+biscuit/vcf2bed:
+  - "modules/nf-core/biscuit/vcf2bed/**"

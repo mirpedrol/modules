@@ -1,0 +1,2 @@
+vt/decompose:
+  - "modules/nf-core/vt/decompose/**"

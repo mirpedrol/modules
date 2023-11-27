@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process PLINK_BCF"
+    script "../main.nf"
+    config "./nextflow.config"
+    process "PLINK_BCF"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "plink"
+    tag "plink/bcf"
+
+    test("test_plink_bcf") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+    [ id:'test_compressed_bcf', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['illumina']['test_bcf'], checkIfExists: true) ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

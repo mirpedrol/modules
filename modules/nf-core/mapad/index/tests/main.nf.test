@@ -1,0 +1,38 @@
+nextflow_process {
+
+    name "Test Process MAPAD_INDEX"
+    script "../main.nf"
+    process "MAPAD_INDEX"
+
+    tag "modules"
+    tag "modules_nfcore"
+    tag "mapad"
+    tag "mapad/index"
+
+    test("test_mapad_index") {
+
+
+        when {
+            process {
+                """
+                
+                input[0] = [
+        [ id:'test', single_end:false ], // meta map
+        file(params.test_data['sarscov2']['genome']['genome_fasta'], checkIfExists: true)
+    ]
+
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out.versions).match("versions") }
+                { assert snapshot(process.out).match() }
+            )
+        }
+
+    }
+
+}

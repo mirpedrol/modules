@@ -1,0 +1,2 @@
+hlala/preparegraph:
+  - "modules/nf-core/hlala/preparegraph/**"
