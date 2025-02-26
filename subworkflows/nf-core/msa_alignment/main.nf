@@ -38,15 +38,15 @@ workflow MSA_ALIGNMENT {
         }
         .set { ch_fasta_branch }
 
-    CLUSTALO_ALIGN( ch_fasta_branch.clustalo_align, [[], []], [], [], [], [], [] )
+    CLUSTALO_ALIGN( ch_fasta_branch.clustalo_align, [[], []], [], [], [], [], true )
     ch_out_alignment = ch_out_alignment.mix(CLUSTALO_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(CLUSTALO_ALIGN.out.versions)
 
-    FAMSA_ALIGN( ch_fasta_branch.famsa_align, [[], []], [] )
+    FAMSA_ALIGN( ch_fasta_branch.famsa_align, [[], []], true )
     ch_out_alignment = ch_out_alignment.mix(FAMSA_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(FAMSA_ALIGN.out.versions)
 
-    KALIGN_ALIGN( ch_fasta_branch.kalign_align, [] )
+    KALIGN_ALIGN( ch_fasta_branch.kalign_align, true )
     ch_out_alignment = ch_out_alignment.mix(KALIGN_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(KALIGN_ALIGN.out.versions)
 
@@ -54,19 +54,19 @@ workflow MSA_ALIGNMENT {
     ch_out_alignment = ch_out_alignment.mix(LEARNMSA_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(LEARNMSA_ALIGN.out.versions)
 
-    MAFFT_ALIGN( ch_fasta_branch.mafft, [[], []], [[], []], [[], []], [[], []], [[], []], [] )
+    MAFFT_ALIGN( ch_fasta_branch.mafft, [[], []], [[], []], [[], []], [[], []], [[], []], true )
     ch_out_alignment = ch_out_alignment.mix(MAFFT_ALIGN.out.fas)
     ch_out_versions = ch_out_versions.mix(MAFFT_ALIGN.out.versions)
 
-    MAGUS_ALIGN( ch_fasta_branch.magus_align, [[], []], [] )
+    MAGUS_ALIGN( ch_fasta_branch.magus_align, [[], []], true )
     ch_out_alignment = ch_out_alignment.mix(MAGUS_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(MAGUS_ALIGN.out.versions)
 
-    MUSCLE5_SUPER5( ch_fasta_branch.muscle5_super5, [] )
+    MUSCLE5_SUPER5( ch_fasta_branch.muscle5_super5, true )
     ch_out_alignment = ch_out_alignment.mix(MUSCLE5_SUPER5.out.alignment)
     ch_out_versions = ch_out_versions.mix(MUSCLE5_SUPER5.out.versions)
 
-    TCOFFEE_ALIGN( ch_fasta_branch.tcoffee_align, [[], []], [[], [], []], [] )
+    TCOFFEE_ALIGN( ch_fasta_branch.tcoffee_align, [[], []], [[], [], []], true )
     ch_out_alignment = ch_out_alignment.mix(TCOFFEE_ALIGN.out.alignment)
     ch_out_versions = ch_out_versions.mix(TCOFFEE_ALIGN.out.versions)
 
