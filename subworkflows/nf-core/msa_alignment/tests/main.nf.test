@@ -182,6 +182,7 @@ nextflow_workflow {
 
     test("run learnmsa/align") {
         options "-stub"
+        config "./nextflow.config"
 
         when {
             workflow {
